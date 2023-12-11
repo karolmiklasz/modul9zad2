@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Edit Library Item</h2>
+
+<form method="POST" action="{{ url_for('edit_item', item_id=item_id) }}">
+    {{ form.hidden_tag() }}
+    {{ form.csrf_token }}
+    <table>
+        {% for field in form %}
+            {% if field.widget.input_type != 'hidden' %}
+                <tr>
+                    <th>{{ field.label }} {% if field.flags.required %}*{% endif %}</th>
+                    <td>{{ field }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+    <input type="submit" value="Save Changes">
+</form>
+<a href="{{ url_for('home') }}">Back to Home</a>
+{% endblock %}
